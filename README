@@ -1,0 +1,5 @@
+INSTALLATION
+Requiert un environnement php sur un serveur web linux avec les paquets snmp d'installés
+Déplacez ces fichiers dans l'arborescence de votre serveur web
+Ouvrez votre navigateur à l'adresse configurée
+enjoy !

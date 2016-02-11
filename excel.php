@@ -1,4 +1,6 @@
 <?php
+
+//utilisation d'une fonction postée sur github https://gist.github.com/searbe/3284011, gérée dans une fonction
 function getExcel($inputFile,$dir){
 $line = array();
 /**

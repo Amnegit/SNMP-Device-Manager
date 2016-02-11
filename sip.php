@@ -1,11 +1,13 @@
 <?php
 include("excel.php");
+//parse le document excel et le retourne comme un tableau
 $excel = getExcel('/var/www/html/rezo/Hosts.xlsx','/var/www/html/rezo/xls/');
-$vlans = array();
+$vlans = array(); //va contenir la liste des différents vlan
 for($i=0;$i<count($excel);$i++){
+//pour chaque case du tableau on cherche à connaître tous les vlans
 	foreach($excel[$i] as $aa => $bb){
 		if(strstr($aa,"VLAN")) $vlane = $bb;
-		$change = 0;
+		$change = 0; //incrément si le vlan présent à la case est déjà rentré
 		foreach($vlans as $vlan){
 			if($vlane == $vlan) $change++;
 		}
@@ -13,17 +15,16 @@ for($i=0;$i<count($excel);$i++){
 			$vlans[] = $vlane;
 		}
 	}
-}
-//var_dump($excel);
-//var_dump($vlans);
+}//->pour la récupération des vlans
+
+//si la demande d'ip est faîte
 if(isset($_POST["vlan"])){
 	for($i=0;$i<count($excel);$i++){
-		$data = var_export($excel[$i],true);
-		if(strstr($data,$_POST["vlan"])){
-			if(strstr($data,"DISPO")){
-				//echo $data."111111111";
+		$data = var_export($excel[$i],true); //contient toutes les chaînes de caractère de la ligne excel
+		if(strstr($data,$_POST["vlan"])){ //si il trouve le vlan
+			if(strstr($data,"DISPO")){ //si elle est dispo
 				foreach($excel[$i] as $ee=>$uu){
-					if(!strstr($ee,"VLAN") && !strstr($uu,"DIS")) $ip = $uu;
+					if(!strstr($ee,"VLAN") && !strstr($uu,"DIS")) $ip = $uu; //récupération de la dernière adresse du tableau
 				}
 			}
 		}
